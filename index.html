@@ -1,912 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Pavan Siva Kumar Somana</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=bus_map_pin,deployed_code,familiar_face_and_zone,precision_manufacturing,recycling,rocket_launch,set_meal,trophy" />
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-
-:root{
-  --black:#0a0a0a;
-  --gray:#6b6b6b;
-  --light:#e8e8e8;
-  --white:#ffffff;
-  --rule:rgba(0,0,0,0.1);
-}
-
-html{scroll-behavior:smooth;}
-
-body{
-  font-family:'Instrument Sans',sans-serif;
-  background:var(--white);
-  color:var(--black);
-  overflow-x:hidden;
-  font-size:16px;
-  line-height:1.6;
-  position:relative;
-  min-height:100vh;
-  --poly-wire:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 720'%3E%3Cg fill='none' stroke='%23858585' stroke-width='1.15' stroke-opacity='.34'%3E%3Cpath d='M0 40 L85 0 L160 70 L240 20 L320 95 M0 40 L65 150 L160 70 L210 185 L320 95 M65 150 L0 265 L118 245 L210 185 L320 300 M118 245 L42 380 L175 360 L320 300 M42 380 L0 520 L150 470 L175 360 L288 500 L320 650 M150 470 L55 650 L210 610 L288 500 M55 650 L0 720 M210 610 L320 720'/%3E%3Cpath d='M85 0 L65 150 M240 20 L210 185 M0 265 L42 380 M320 300 L288 500 M150 470 L210 610'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-body::before{
-  content:'';
-  position:absolute;
-  top:100vh;
-  right:0;
-  bottom:0;
-  left:0;
-  pointer-events:none;
-  z-index:0;
-  background-image:var(--poly-wire),var(--poly-wire);
-  background-repeat:repeat-y,repeat-y;
-  background-size:320px 720px,320px 720px;
-  background-position:left top,right top;
-  mask-image:linear-gradient(90deg,
-    #000 0%,
-    rgba(0,0,0,0.86) 7%,
-    rgba(0,0,0,0.18) 15%,
-    transparent 18%,
-    transparent 82%,
-    rgba(0,0,0,0.18) 85%,
-    rgba(0,0,0,0.86) 93%,
-    #000 100%);
-  -webkit-mask-image:linear-gradient(90deg,
-    #000 0%,
-    rgba(0,0,0,0.86) 7%,
-    rgba(0,0,0,0.18) 15%,
-    transparent 18%,
-    transparent 82%,
-    rgba(0,0,0,0.18) 85%,
-    rgba(0,0,0,0.86) 93%,
-    #000 100%);
-}
-
-::-webkit-scrollbar{width:2px;}
-::-webkit-scrollbar-thumb{background:var(--black);}
-
-/* PROGRESS */
-#prog{
-  position:fixed;top:0;left:0;
-  height:1px;background:var(--black);
-  z-index:200;transition:width 0.05s linear;
-  width:0%;
-}
-
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;
-  z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.5rem 4rem;
-  background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--rule);
-}
-.nav-logo{
-  font-family:'Playfair Display',serif;
-  font-size:1.1rem;font-weight:700;
-  letter-spacing:-0.02em;color:var(--black);
-}
-.nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{
-  font-size:0.75rem;font-weight:400;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--gray);text-decoration:none;
-  transition:color 0.2s;
-}
-.nav-links a:hover{color:var(--black);}
-
-/* HERO */
-#hero{
-  min-height:100vh;
-  display:grid;grid-template-columns:1fr 1fr;
-  align-items:center;
-  padding:8rem 4rem 4rem;
-  border-bottom:1px solid var(--rule);
-}
-.hero-left{padding-right:4rem;}
-.hero-tag{
-  font-family:'DM Mono',monospace;
-  font-size:clamp(0.62rem,0.9vw,0.7rem);font-weight:300;
-  letter-spacing:clamp(0.08em,0.35vw,0.16em);text-transform:uppercase;
-  color:var(--gray);margin-bottom:2rem;
-  white-space:nowrap;
-  max-width:100%;
-  opacity:0;
-  animation:fadeUp 0.8s ease 0.1s forwards;
-}
-.hero-name{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.8rem,5vw,4.5rem);
-  font-weight:700;line-height:1.0;
-  letter-spacing:-0.03em;
-  color:var(--black);
-  margin-bottom:0.4rem;
-  opacity:0;
-  animation:fadeUp 0.9s ease 0.2s forwards;
-}
-.hero-name-sub{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.8rem,5vw,4.5rem);
-  font-weight:400;font-style:italic;
-  line-height:1.0;letter-spacing:-0.03em;
-  color:var(--black);
-  margin-bottom:2.5rem;
-  opacity:0;
-  animation:fadeUp 0.9s ease 0.3s forwards;
-}
-.hero-typewriter{
-  font-family:'DM Mono',monospace;
-  font-size:0.85rem;font-weight:300;
-  color:var(--gray);margin-bottom:2rem;
-  min-height:1.4rem;
-  opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;
-}
-.tw-cursor{
-  display:inline-block;width:1px;height:0.9em;
-  background:var(--black);vertical-align:text-bottom;
-  animation:blink 0.9s step-end infinite;
-  margin-left:1px;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-.hero-quote{
-  font-size:0.95rem;font-weight:300;
-  color:var(--gray);line-height:1.8;
-  border-left:1px solid var(--black);
-  padding-left:1.25rem;
-  margin-bottom:3rem;
-  opacity:0;animation:fadeUp 0.8s ease 0.5s forwards;
-}
-.hero-cta{
-  display:flex;flex-wrap:wrap;gap:0.75rem;
-  opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;
-}
-.btn{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  padding:0.7rem 1.5rem;
-  font-family:'Instrument Sans',sans-serif;
-  font-size:0.75rem;font-weight:500;
-  letter-spacing:0.1em;text-transform:uppercase;
-  text-decoration:none;
-  border-radius:0;
-  transition:all 0.2s;
-  cursor:pointer;
-}
-.btn-fill{
-  background:var(--black);color:var(--white);
-  border:1px solid var(--black);
-}
-.btn-fill:hover{background:var(--white);color:var(--black);}
-.btn-ghost{
-  background:transparent;color:var(--black);
-  border:1px solid var(--rule);
-}
-.btn-ghost:hover{border-color:var(--black);}
-
-/* Hero right */
-.hero-right{
-  display:flex;flex-direction:column;
-  align-items:flex-end;
-  gap:2rem;
-  opacity:0;animation:fadeRight 1s ease 0.4s forwards;
-}
-.photo-wrap{
-  width:260px;height:260px;
-  border:1px solid var(--rule);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-.profile-photo{
-  width:calc(100% - 18px);
-  height:calc(100% - 18px);
-  object-fit:contain;
-  object-position:center bottom;
-  display:block;
-}
-.photo-wrap::before{
-  content:'';position:absolute;
-  inset:8px;border:1px solid var(--rule);
-  pointer-events:none;z-index:1;
-}
-.photo-initials{
-  font-family:'Playfair Display',serif;
-  font-size:4rem;font-weight:700;
-  color:var(--light);
-  letter-spacing:-0.05em;
-  user-select:none;
-}
-.photo-note{
-  position:absolute;bottom:12px;left:0;right:0;
-  text-align:center;
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.15em;
-  color:var(--gray);
-}
-.hero-stats{
-  display:flex;gap:0;
-  border:1px solid var(--rule);
-  width:260px;
-}
-.stat{
-  flex:1;padding:1rem 0.75rem;
-  text-align:center;
-  border-right:1px solid var(--rule);
-}
-.stat:last-child{border-right:none;}
-.stat-n{
-  font-family:'Playfair Display',serif;
-  font-size:1.75rem;font-weight:700;
-  color:var(--black);line-height:1;
-}
-.stat-l{font-size:0.6rem;color:var(--gray);letter-spacing:0.05em;margin-top:0.25rem;}
-
-/* KEYFRAMES */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(24px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@keyframes fadeRight{
-  from{opacity:0;transform:translateX(24px);}
-  to{opacity:1;transform:translateX(0);}
-}
-
-/* SECTION SHARED */
-section{border-bottom:1px solid var(--rule);}
-section:not(#hero){
-  position:relative;
-  background:transparent;
-}
-section:not(#hero)>*{
-  position:relative;
-  z-index:1;
-}
-.wrap{max-width:1100px;margin:0 auto;padding:5rem 4rem;}
-.sec-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gray);margin-bottom:3rem;
-  display:flex;align-items:center;gap:1.5rem;
-}
-.sec-label::after{
-  content:'';flex:1;height:1px;background:var(--rule);
-}
-
-/* ABOUT */
-.about-cols{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;}
-.info-list{list-style:none;display:flex;flex-direction:column;}
-.info-item{
-  display:flex;align-items:flex-start;gap:1.25rem;
-  padding:1.1rem 0;border-bottom:1px solid var(--rule);
-  transition:transform 0.22s ease;
-}
-.info-item:first-child{border-top:1px solid var(--rule);}
-.info-item:hover{transform:translateX(0.5rem);}
-.info-em{font-size:0.7rem;color:var(--gray);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;padding-top:0.1rem;min-width:64px;}
-.info-val{font-size:0.9rem;color:var(--black);line-height:1.5;}
-.info-val a{color:var(--black);text-decoration:underline;text-underline-offset:3px;}
-
-.edu-stack{display:flex;flex-direction:column;}
-.edu-row{
-  display:grid;grid-template-columns:80px 1fr;
-  gap:1.5rem;
-  padding:1.5rem 0;
-  border-bottom:1px solid var(--rule);
-  opacity:0;transform:translateY(16px);
-  transition:opacity 0.5s,transform 0.5s;
-}
-.edu-row:first-child{border-top:1px solid var(--rule);}
-.edu-row.visible{opacity:1;transform:translateY(0);}
-.edu-yr{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;font-weight:300;
-  color:var(--gray);padding-top:0.15rem;
-  line-height:1.6;
-}
-.edu-body{}
-.edu-deg{font-size:0.95rem;font-weight:500;color:var(--black);}
-.edu-inst{font-size:0.8rem;color:var(--gray);margin-top:0.2rem;}
-.edu-badge{
-  display:inline-block;margin-top:0.6rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;
-  padding:0.2rem 0.6rem;
-  border:1px solid var(--rule);
-  color:var(--black);
-}
-
-/* SKILLS */
-.skills-wrap{max-width:1100px;margin:0 auto;padding:5rem 4rem;}
-.skill-groups{display:flex;flex-direction:column;gap:0;}
-.skill-group{
-  display:grid;grid-template-columns:120px 1fr;
-  align-items:start;gap:2rem;
-  padding:1.5rem 0;
-  border-bottom:1px solid var(--rule);
-}
-.skill-group:first-child{border-top:1px solid var(--rule);}
-.sg-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.1em;
-  color:var(--gray);padding-top:0.2rem;
-}
-.chips{display:flex;flex-wrap:wrap;gap:0.5rem;}
-.chip{
-  font-size:0.78rem;font-weight:400;
-  padding:0.35rem 0.85rem;
-  border:1px solid var(--rule);
-  color:var(--black);
-  transition:background 0.15s ease,border-color 0.15s ease,color 0.15s ease;
-  cursor:default;
-}
-.chip:hover{background:var(--black);color:var(--white);border-color:var(--black);}
-
-/* PROJECTS */
-.projects-list{display:flex;flex-direction:column;}
-.proj-row{
-  display:grid;grid-template-columns:40px 1fr auto;
-  gap:2rem;align-items:start;
-  padding:2rem 0;
-  border-bottom:1px solid var(--rule);
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.5s ease,transform 0.5s ease;
-}
-.proj-row:first-child{border-top:1px solid var(--rule);}
-.proj-row.visible{opacity:1;transform:translateY(0);}
-.proj-row:hover{transform:translateX(0.5rem);}
-.proj-num{
-  font-family:'Playfair Display',serif;
-  font-size:1.4rem;font-weight:700;color:var(--light);
-  line-height:1;padding-top:0.15rem;
-}
-.proj-title{font-size:1rem;font-weight:500;color:var(--black);margin-bottom:0.5rem;}
-.proj-desc{font-size:0.85rem;color:var(--gray);line-height:1.7;margin-bottom:0.75rem;}
-.proj-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
-.ptag{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;color:var(--gray);
-  padding:0.2rem 0.5rem;
-  border:1px solid var(--rule);
-}
-.proj-icon{font-size:1.55rem;padding-top:0.1rem;display:flex;align-items:center;}
-.material-symbols-outlined{
-  font-family:'Material Symbols Outlined';
-  font-weight:normal;
-  font-style:normal;
-  font-size:1em;
-  line-height:1;
-  letter-spacing:normal;
-  text-transform:none;
-  display:inline-block;
-  white-space:nowrap;
-  word-wrap:normal;
-  direction:ltr;
-  -webkit-font-feature-settings:'liga';
-  -webkit-font-smoothing:antialiased;
-  font-feature-settings:'liga';
-  font-variation-settings:'FILL' 0,'wght' 250,'GRAD' -25,'opsz' 24;
-  vertical-align:middle;
-}
-.proj-icon .material-symbols-outlined{
-  font-size:1.65rem;
-  color:#303030;
-  font-variation-settings:'FILL' 0,'wght' 250,'GRAD' -25,'opsz' 24;
-}
-
-/* ACHIEVEMENTS */
-.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-left:1px solid var(--rule);}
-.ach-col{padding-left:3rem;padding-right:3rem;}
-.ach-col:last-child{padding-left:3rem;padding-right:0;border-left:1px solid var(--rule);}
-.ach-sub{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--gray);margin-bottom:1.5rem;
-}
-.award-item{
-  padding:1.25rem 0;border-bottom:1px solid var(--rule);
-  display:flex;gap:1rem;align-items:flex-start;
-  transition:transform 0.22s ease;
-}
-.award-item:hover{transform:translateX(0.5rem);}
-.award-icon{font-size:1.35rem;flex-shrink:0;padding-top:0.05rem;display:flex;align-items:center;}
-.award-icon .material-symbols-outlined{
-  font-size:1.35rem;
-  color:#303030;
-  font-variation-settings:'FILL' 0,'wght' 250,'GRAD' -25,'opsz' 24;
-}
-.award-t{font-size:0.9rem;font-weight:500;color:var(--black);}
-.award-s{font-size:0.78rem;color:var(--gray);margin-top:0.2rem;}
-.pub-item{
-  padding:1.25rem 0;border-bottom:1px solid var(--rule);
-  display:grid;grid-template-columns:28px 1fr;gap:1rem;
-  transition:transform 0.22s ease;
-}
-.pub-item:hover{transform:translateX(0.5rem);}
-.pub-n{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;color:var(--gray);
-  padding-top:0.1rem;
-}
-.pub-t{font-size:0.82rem;color:var(--black);line-height:1.55;}
-.pub-t a{
-  display:inline-block;margin-top:0.35rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.68rem;color:var(--gray);
-  text-decoration:none;
-  border-bottom:1px solid var(--rule);
-  transition:border-color 0.2s ease,color 0.2s ease;
-}
-.pub-t a:hover{color:var(--black);border-color:var(--black);}
-
-/* CONTACT */
-.contact-inner{max-width:640px;}
-.contact-heading{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2rem,4vw,3rem);
-  font-weight:400;font-style:italic;
-  line-height:1.2;
-  color:var(--black);margin-bottom:2.5rem;
-}
-.contact-row{
-  display:flex;flex-direction:column;
-}
-.c-item{
-  display:grid;grid-template-columns:100px 1fr;gap:1.5rem;
-  align-items:center;
-  padding:1rem 0;border-bottom:1px solid var(--rule);
-  transition:transform 0.22s ease;
-}
-.c-item:first-child{border-top:1px solid var(--rule);}
-.c-item:hover{transform:translateX(0.5rem);}
-.c-label{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--gray);}
-.c-val{font-size:0.9rem;color:var(--black);}
-.c-val a{color:var(--black);text-decoration:underline;text-underline-offset:3px;}
-.cta-row{margin-top:2.5rem;display:flex;gap:1rem;}
-
-footer{
-  padding:2rem 4rem;
-  display:flex;align-items:center;justify-content:space-between;
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;color:var(--gray);letter-spacing:0.05em;
-  position:relative;
-  z-index:1;
-  background:var(--white);
-}
-
-/* Reveal */
-.reveal{
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.6s ease,transform 0.6s ease;
-}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-@media(max-width:1100px){
-  #hero{grid-template-columns:1.3fr 0.7fr;}
-  .hero-left{padding-right:2rem;}
-  .hero-tag{font-size:0.64rem;letter-spacing:0.1em;}
-}
-
-@media(max-width:900px){
-  #hero{grid-template-columns:1fr;}
-  .hero-left{padding-right:0;}
-  .hero-tag{white-space:normal;line-height:1.8;}
-}
-
-@media(max-width:768px){
-  nav{padding:1.25rem 1.5rem;}
-  .nav-links{gap:1.5rem;}
-  #hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:2.5rem;}
-  .hero-left{padding-right:0;}
-  .hero-right{align-items:center;}
-  .wrap,.skills-wrap{padding:4rem 1.5rem;}
-  .about-cols{grid-template-columns:1fr;gap:3rem;}
-  .ach-grid{grid-template-columns:1fr;border-left:none;}
-  .ach-col{padding-left:0;padding-right:0;}
-  .ach-col:last-child{padding-left:0;border-left:none;border-top:1px solid var(--rule);padding-top:2rem;margin-top:2rem;}
-  .skill-group{grid-template-columns:1fr;gap:0.75rem;}
-  .proj-row{grid-template-columns:32px 1fr;}
-  .proj-icon{display:none;}
-  footer{flex-direction:column;gap:0.5rem;text-align:center;padding:1.5rem;}
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pavan Siva Kumar Somana · Database Analyst</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        :root { --black:#0a0a0a; --gray:#6b6b6b; --light:#e8e8e8; --white:#ffffff; --rule:rgba(0,0,0,0.1); }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Instrument Sans',sans-serif; background:var(--white); color:var(--black); overflow-x:hidden; font-size:16px; line-height:1.6; position:relative; min-height:100vh; --poly-wire:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 720'%3E%3Cg fill='none' stroke='%23858585' stroke-width='1.15' stroke-opacity='.34'%3E%3Cpath d='M0 40 L85 0 L160 70 L240 20 L320 95 M0 40 L65 150 L160 70 L210 185 L320 95 M65 150 L0 265 L118 245 L210 185 L320 300 M118 245 L42 380 L175 360 L320 300 M42 380 L0 520 L150 470 L175 360 L288 500 L320 650 M150 470 L55 650 L210 610 L288 500 M55 650 L0 720 M210 610 L320 720'/%3E%3Cpath d='M85 0 L65 150 M240 20 L210 185 M0 265 L42 380 M320 300 L288 500 M150 470 L210 610'/%3E%3C/g%3E%3C/svg%3E"); }
+        body::before { content:''; position:absolute; top:100vh; right:0; bottom:0; left:0; pointer-events:none; z-index:0; background-image:var(--poly-wire),var(--poly-wire); background-repeat:repeat-y,repeat-y; background-size:320px 720px,320px 720px; background-position:left top,right top; mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,0.86) 7%, rgba(0,0,0,0.18) 15%, transparent 18%, transparent 82%, rgba(0,0,0,0.18) 85%, rgba(0,0,0,0.86) 93%, #000 100%); -webkit-mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,0.86) 7%, rgba(0,0,0,0.18) 15%, transparent 18%, transparent 82%, rgba(0,0,0,0.18) 85%, rgba(0,0,0,0.86) 93%, #000 100%); }
+        ::-webkit-scrollbar { width:2px; } ::-webkit-scrollbar-thumb { background:var(--black); }
+        #prog { position:fixed; top:0; left:0; height:1px; background:var(--black); z-index:200; transition:width 0.05s linear; width:0%; }
+        nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.5rem 4rem; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--rule); }
+        .nav-logo { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; letter-spacing:-0.02em; color:var(--black); }
+        .nav-links { display:flex; gap:2.5rem; list-style:none; }
+        .nav-links a { font-size:0.75rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray); text-decoration:none; transition:color 0.2s; }
+        .nav-links a:hover { color:var(--black); }
+        #hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:8rem 4rem 4rem; border-bottom:1px solid var(--rule); }
+        .hero-left { padding-right:4rem; }
+        .hero-tag { font-family:'DM Mono',monospace; font-size:clamp(0.62rem,0.9vw,0.7rem); font-weight:300; letter-spacing:clamp(0.08em,0.35vw,0.16em); text-transform:uppercase; color:var(--gray); margin-bottom:2rem; white-space:nowrap; max-width:100%; opacity:0; animation:fadeUp 0.8s ease 0.1s forwards; }
+        .hero-name { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,5vw,4.5rem); font-weight:700; line-height:1.0; letter-spacing:-0.03em; color:var(--black); margin-bottom:0.4rem; opacity:0; animation:fadeUp 0.9s ease 0.2s forwards; }
+        .hero-name-sub { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,5vw,4.5rem); font-weight:400; font-style:italic; line-height:1.0; letter-spacing:-0.03em; color:var(--black); margin-bottom:2.5rem; opacity:0; animation:fadeUp 0.9s ease 0.3s forwards; }
+        .hero-typewriter { font-family:'DM Mono',monospace; font-size:0.85rem; font-weight:300; color:var(--gray); margin-bottom:2rem; min-height:1.4rem; opacity:0; animation:fadeUp 0.8s ease 0.4s forwards; }
+        .tw-cursor { display:inline-block; width:1px; height:0.9em; background:var(--black); vertical-align:text-bottom; animation:blink 0.9s step-end infinite; margin-left:1px; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        .hero-quote { font-size:0.95rem; font-weight:300; color:var(--gray); line-height:1.8; border-left:1px solid var(--black); padding-left:1.25rem; margin-bottom:3rem; opacity:0; animation:fadeUp 0.8s ease 0.5s forwards; }
+        .hero-cta { display:flex; flex-wrap:wrap; gap:0.75rem; opacity:0; animation:fadeUp 0.8s ease 0.6s forwards; }
+        .btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.7rem 1.5rem; font-family:'Instrument Sans',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; border-radius:0; transition:all 0.2s; cursor:pointer; }
+        .btn-fill { background:var(--black); color:var(--white); border:1px solid var(--black); }
+        .btn-fill:hover { background:var(--white); color:var(--black); }
+        .btn-ghost { background:transparent; color:var(--black); border:1px solid var(--rule); }
+        .btn-ghost:hover { border-color:var(--black); }
+        .hero-right { display:flex; flex-direction:column; align-items:flex-end; gap:2rem; opacity:0; animation:fadeRight 1s ease 0.4s forwards; }
+        .photo-wrap { width:260px; height:260px; border:1px solid var(--rule); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+        .profile-photo { width:calc(100% - 18px); height:calc(100% - 18px); object-fit:contain; object-position:center bottom; display:block; }
+        .photo-wrap::before { content:''; position:absolute; inset:8px; border:1px solid var(--rule); pointer-events:none; z-index:1; }
+        .photo-initials { font-family:'Playfair Display',serif; font-size:4rem; font-weight:700; color:var(--light); letter-spacing:-0.05em; user-select:none; }
+        .photo-note { position:absolute; bottom:12px; left:0; right:0; text-align:center; font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; color:var(--gray); }
+        .hero-stats { display:flex; gap:0; border:1px solid var(--rule); width:260px; }
+        .stat { flex:1; padding:1rem 0.75rem; text-align:center; border-right:1px solid var(--rule); }
+        .stat:last-child { border-right:none; }
+        .stat-n { font-family:'Playfair Display',serif; font-size:1.75rem; font-weight:700; color:var(--black); line-height:1; }
+        .stat-l { font-size:0.6rem; color:var(--gray); letter-spacing:0.05em; margin-top:0.25rem; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes fadeRight { from{opacity:0;transform:translateX(24px);} to{opacity:1;transform:translateX(0);} }
+        section { border-bottom:1px solid var(--rule); }
+        section:not(#hero) { position:relative; background:transparent; }
+        section:not(#hero)>* { position:relative; z-index:1; }
+        .wrap { max-width:1100px; margin:0 auto; padding:5rem 4rem; }
+        .sec-label { font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gray); margin-bottom:3rem; display:flex; align-items:center; gap:1.5rem; }
+        .sec-label::after { content:''; flex:1; height:1px; background:var(--rule); }
+        .about-cols { display:grid; grid-template-columns:1fr 1.4fr; gap:4rem; align-items:start; }
+        .info-list { list-style:none; display:flex; flex-direction:column; }
+        .info-item { display:flex; align-items:flex-start; gap:1.25rem; padding:1.1rem 0; border-bottom:1px solid var(--rule); transition:transform 0.22s ease; }
+        .info-item:first-child { border-top:1px solid var(--rule); }
+        .info-item:hover { transform:translateX(0.5rem); }
+        .info-em { font-size:0.7rem; color:var(--gray); letter-spacing:0.1em; text-transform:uppercase; white-space:nowrap; padding-top:0.1rem; min-width:64px; }
+        .info-val { font-size:0.9rem; color:var(--black); line-height:1.5; }
+        .info-val a { color:var(--black); text-decoration:underline; text-underline-offset:3px; }
+        .edu-stack { display:flex; flex-direction:column; }
+        .edu-row { display:grid; grid-template-columns:80px 1fr; gap:1.5rem; padding:1.5rem 0; border-bottom:1px solid var(--rule); opacity:0; transform:translateY(16px); transition:opacity 0.5s,transform 0.5s; }
+        .edu-row:first-child { border-top:1px solid var(--rule); }
+        .edu-row.visible { opacity:1; transform:translateY(0); }
+        .edu-yr { font-family:'DM Mono',monospace; font-size:0.65rem; font-weight:300; color:var(--gray); padding-top:0.15rem; line-height:1.6; }
+        .edu-deg { font-size:0.95rem; font-weight:500; color:var(--black); }
+        .edu-inst { font-size:0.8rem; color:var(--gray); margin-top:0.2rem; }
+        .edu-badge { display:inline-block; margin-top:0.6rem; font-family:'DM Mono',monospace; font-size:0.7rem; padding:0.2rem 0.6rem; border:1px solid var(--rule); color:var(--black); }
+        .skills-wrap { max-width:1100px; margin:0 auto; padding:5rem 4rem; }
+        .skill-groups { display:flex; flex-direction:column; gap:0; }
+        .skill-group { display:grid; grid-template-columns:120px 1fr; align-items:start; gap:2rem; padding:1.5rem 0; border-bottom:1px solid var(--rule); }
+        .skill-group:first-child { border-top:1px solid var(--rule); }
+        .sg-label { font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; color:var(--gray); padding-top:0.2rem; }
+        .chips { display:flex; flex-wrap:wrap; gap:0.5rem; }
+        .chip { font-size:0.78rem; font-weight:400; padding:0.35rem 0.85rem; border:1px solid var(--rule); color:var(--black); transition:background 0.15s ease,border-color 0.15s ease,color 0.15s ease; cursor:default; }
+        .chip:hover { background:var(--black); color:var(--white); border-color:var(--black); }
+        .projects-list { display:flex; flex-direction:column; }
+        .proj-row { display:grid; grid-template-columns:40px 1fr auto; gap:2rem; align-items:start; padding:2rem 0; border-bottom:1px solid var(--rule); opacity:0; transform:translateY(20px); transition:opacity 0.5s ease,transform 0.5s ease; }
+        .proj-row:first-child { border-top:1px solid var(--rule); }
+        .proj-row.visible { opacity:1; transform:translateY(0); }
+        .proj-row:hover { transform:translateX(0.5rem); }
+        .proj-num { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--light); line-height:1; padding-top:0.15rem; }
+        .proj-title { font-size:1rem; font-weight:500; color:var(--black); margin-bottom:0.5rem; }
+        .proj-desc { font-size:0.85rem; color:var(--gray); line-height:1.7; margin-bottom:0.75rem; }
+        .proj-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+        .ptag { font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--gray); padding:0.2rem 0.5rem; border:1px solid var(--rule); }
+        .proj-icon { font-size:1.55rem; padding-top:0.1rem; display:flex; align-items:center; }
+        .material-symbols-outlined { font-family:'Material Symbols Outlined'; font-weight:normal; font-style:normal; font-size:1em; line-height:1; letter-spacing:normal; text-transform:none; display:inline-block; white-space:nowrap; word-wrap:normal; direction:ltr; -webkit-font-feature-settings:'liga'; -webkit-font-smoothing:antialiased; font-feature-settings:'liga'; font-variation-settings:'FILL' 0,'wght' 250,'GRAD' -25,'opsz' 24; vertical-align:middle; }
+        .proj-icon .material-symbols-outlined { font-size:1.65rem; color:#303030; }
+        .ach-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-left:1px solid var(--rule); }
+        .ach-col { padding-left:3rem; padding-right:3rem; }
+        .ach-col:last-child { padding-left:3rem; padding-right:0; border-left:1px solid var(--rule); }
+        .ach-sub { font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gray); margin-bottom:1.5rem; }
+        .award-item { padding:1.25rem 0; border-bottom:1px solid var(--rule); display:flex; gap:1rem; align-items:flex-start; transition:transform 0.22s ease; }
+        .award-item:hover { transform:translateX(0.5rem); }
+        .award-icon { font-size:1.35rem; flex-shrink:0; padding-top:0.05rem; display:flex; align-items:center; }
+        .award-icon .material-symbols-outlined { font-size:1.35rem; color:#303030; }
+        .award-t { font-size:0.9rem; font-weight:500; color:var(--black); }
+        .award-s { font-size:0.78rem; color:var(--gray); margin-top:0.2rem; }
+        .pub-item { padding:1.25rem 0; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:28px 1fr; gap:1rem; transition:transform 0.22s ease; }
+        .pub-item:hover { transform:translateX(0.5rem); }
+        .pub-n { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--gray); padding-top:0.1rem; }
+        .pub-t { font-size:0.82rem; color:var(--black); line-height:1.55; }
+        .pub-t a { display:inline-block; margin-top:0.35rem; font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--gray); text-decoration:none; border-bottom:1px solid var(--rule); transition:border-color 0.2s ease,color 0.2s ease; }
+        .pub-t a:hover { color:var(--black); border-color:var(--black); }
+        .contact-inner { max-width:640px; }
+        .contact-heading { font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:400; font-style:italic; line-height:1.2; color:var(--black); margin-bottom:2.5rem; }
+        .contact-row { display:flex; flex-direction:column; }
+        .c-item { display:grid; grid-template-columns:100px 1fr; gap:1.5rem; align-items:center; padding:1rem 0; border-bottom:1px solid var(--rule); transition:transform 0.22s ease; }
+        .c-item:first-child { border-top:1px solid var(--rule); }
+        .c-item:hover { transform:translateX(0.5rem); }
+        .c-label { font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; color:var(--gray); }
+        .c-val { font-size:0.9rem; color:var(--black); }
+        .c-val a { color:var(--black); text-decoration:underline; text-underline-offset:3px; }
+        .cta-row { margin-top:2.5rem; display:flex; gap:1rem; }
+        footer { padding:2rem 4rem; display:flex; align-items:center; justify-content:space-between; font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--gray); letter-spacing:0.05em; position:relative; z-index:1; background:var(--white); }
+        .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease,transform 0.6s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        @media(max-width:1100px){ #hero{grid-template-columns:1.3fr 0.7fr;} .hero-left{padding-right:2rem;} .hero-tag{font-size:0.64rem;letter-spacing:0.1em;} }
+        @media(max-width:900px){ #hero{grid-template-columns:1fr;} .hero-left{padding-right:0;} .hero-tag{white-space:normal;line-height:1.8;} }
+        @media(max-width:768px){ nav{padding:1.25rem 1.5rem;} .nav-links{gap:1.5rem;} #hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:2.5rem;} .hero-left{padding-right:0;} .hero-right{align-items:center;} .wrap,.skills-wrap{padding:4rem 1.5rem;} .about-cols{grid-template-columns:1fr;gap:3rem;} .ach-grid{grid-template-columns:1fr;border-left:none;} .ach-col{padding-left:0;padding-right:0;} .ach-col:last-child{padding-left:0;border-left:none;border-top:1px solid var(--rule);padding-top:2rem;margin-top:2rem;} .skill-group{grid-template-columns:1fr;gap:0.75rem;} .proj-row{grid-template-columns:32px 1fr;} .proj-icon{display:none;} footer{flex-direction:column;gap:0.5rem;text-align:center;padding:1.5rem;} }
+    </style>
 </head>
 <body>
 
-<div id="prog"></div>
+    <div id="prog"></div>
 
-<nav>
-  <div class="nav-logo">Pavan Siva Kumar</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#summary">Summary</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#achievements">Research</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+    <nav>
+        <div class="nav-logo">Pavan Siva Kumar</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#summary">Summary</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#achievements">Research</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-<!-- HERO -->
-<section id="hero" style="border-bottom:1px solid var(--rule);">
-  <div class="hero-left">
-    <p class="hero-tag">AI/ML · Computer Vision · IoT Systems · Software Development · CSE&nbsp;'26</p>
-    <h1 class="hero-name">Pavan Siva Kumar</h1>
-    <h1 class="hero-name-sub">Somana.</h1>
-    <div class="hero-typewriter"><span id="tw"></span><span class="tw-cursor"></span></div>
-    <blockquote class="hero-quote">
-      "Building practical technology where intelligent software meets real-world hardware."
-    </blockquote>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-fill">Projects ↗</a>
-      <a href="#about" class="btn btn-ghost">About</a>
-      <a href="#achievements" class="btn btn-ghost">Research</a>
-      <a href="#contact" class="btn btn-ghost">Contact</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="photo-wrap">
-      <img class="profile-photo" src="Profile.png" alt="Pavan Siva Kumar Somana">
-    </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-n">5</div>
-        <div class="stat-l">Publications</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">6</div>
-        <div class="stat-l">Projects</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">7.76</div>
-        <div class="stat-l">CGPA</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="wrap">
-    <div class="sec-label reveal">About</div>
-    <div class="about-cols">
-      <div class="reveal">
-        <ul class="info-list">
-  <li class="info-item">
-    <span class="info-em">Profile</span>
-    <span class="info-val">CSE student building AI, IoT, robotics, and software-based systems for real-world problems.</span>
-  </li>
-  <li class="info-item">
-    <span class="info-em">Focus</span>
-    <span class="info-val">Computer Vision, Edge AI, IoT Systems, Python Development, and Flutter-based applications.</span>
-  </li>
-  <li class="info-item">
-    <span class="info-em">Work</span>
-    <span class="info-val">Open to remote internships, AI/ML projects, Python development work, and IoT/software roles.</span>
-  </li>
-  <li class="info-item">
-    <span class="info-em">Research</span>
-    <span class="info-val">Published IEEE research across IoT, robotics, computer vision, and ML-enabled platforms.</span>
-  </li>
-  <li class="info-item">
-    <span class="info-em">Location</span>
-    <span class="info-val">Bhimavaram, Andhra Pradesh, India</span>
-  </li>
-</ul>
-      </div>
-      <div class="reveal" style="transition-delay:0.1s">
-        <div class="edu-stack">
-          <div class="edu-row">
-            <div class="edu-yr">2022–2026</div>
-            <div class="edu-body">
-              <div class="edu-deg">B.Tech — Computer Science Engineering</div>
-              <div class="edu-inst">Kalasalingam Academy of Research and Education</div>
-              <div class="edu-badge">CGPA 7.76</div>
+    <!-- HERO -->
+    <section id="hero" style="border-bottom:1px solid var(--rule);">
+        <div class="hero-left">
+            <p class="hero-tag">Database Analyst · SQL · Python · Data Analytics · Data Visualization · CSE&nbsp;'26</p>
+            <h1 class="hero-name">Pavan Siva Kumar</h1>
+            <h1 class="hero-name-sub">Somana.</h1>
+            <div class="hero-typewriter"><span id="tw"></span><span class="tw-cursor"></span></div>
+            <blockquote class="hero-quote">
+                "Building data-driven solutions that turn complex information into actionable insights."
+            </blockquote>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-fill">Projects ↗</a>
+                <a href="#about" class="btn btn-ghost">About</a>
+                <a href="#achievements" class="btn btn-ghost">Research</a>
+                <a href="#contact" class="btn btn-ghost">Contact</a>
             </div>
-          </div>
-          <div class="edu-row">
-            <div class="edu-yr">2020–2022</div>
-            <div class="edu-body">
-              <div class="edu-deg">Class XII — MPC</div>
-              <div class="edu-inst">Tirumala Educational Institutions</div>
-              <div class="edu-badge">93.7%</div>
+        </div>
+        <div class="hero-right">
+            <div class="photo-wrap">
+                <img class="profile-photo" src="Profile.png" alt="Pavan Siva Kumar Somana">
             </div>
-          </div>
-          <div class="edu-row">
-            <div class="edu-yr">2019–2020</div>
-            <div class="edu-body">
-              <div class="edu-deg">10th Standard — SSC</div>
-              <div class="edu-inst">Bhashyam School, Branch 2, Bhimavaram</div>
-              <div class="edu-badge">100%</div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-n">5</div>
+                    <div class="stat-l">Publications</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">6</div>
+                    <div class="stat-l">Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">7.76</div>
+                    <div class="stat-l">CGPA</div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- SUMMARY -->
-<section id="summary">
-  <div class="wrap">
-    <div class="sec-label reveal">Summary</div>
-    <div class="reveal" style="max-width:780px;">
-      <p style="font-size:1.05rem;font-weight:300;color:var(--black);line-height:1.9;">
-        Machine Learning and Computer Science Engineering student with hands-on experience in computer vision, edge AI deployment, IoT-integrated systems, Flutter-based applications, and software development. Skilled in Python, OpenCV, YOLOv8, ONNX, Firebase, PostgreSQL, REST APIs, and GitHub-based workflows.
-      </p>
-      <p style="font-size:0.9rem;font-weight:300;color:var(--gray);line-height:1.9;margin-top:1.25rem;">
-        Experienced in building real-world solutions including a smart recycling reverse vending machine, robotic automation system, facial recognition attendance platform, ML-enabled roadside assistance platform, smart aquarium IoT application, and Minecraft Bedrock addon development. Published multiple IEEE research papers and actively seeking remote AI/ML, Python Developer, Computer Vision, IoT, Flutter, or software development internship roles.
-      </p>
-      <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Artificial Intelligence</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Machine Learning</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Computer Vision</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Edge AI</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">IoT Systems</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Robotics</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Flutter Development</span>
-        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Smart Automation</span>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="wrap">
+            <div class="sec-label reveal">About</div>
+            <div class="about-cols">
+                <div class="reveal">
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <span class="info-em">Profile</span>
+                            <span class="info-val">CSE student with a strong foundation in database systems, SQL, Python, data analytics, and data visualization — building data-driven applications across domains.</span>
+                        </li>
+                        <li class="info-item">
+                            <span class="info-em">Focus</span>
+                            <span class="info-val">Database Management · Data Analysis · EDA · Data Visualization · Python Development · SQL · PostgreSQL · MongoDB · Firebase · REST APIs</span>
+                        </li>
+                        <li class="info-item">
+                            <span class="info-em">Work</span>
+                            <span class="info-val">Open to remote Database Analyst, Data Analyst, SQL Developer, Python Developer, and Data Engineering roles.</span>
+                        </li>
+                        <li class="info-item">
+                            <span class="info-em">Research</span>
+                            <span class="info-val">Published IEEE research across IoT, robotics, computer vision, and ML-enabled platforms with strong analytical and problem-solving foundations.</span>
+                        </li>
+                        <li class="info-item">
+                            <span class="info-em">Location</span>
+                            <span class="info-val">Bhimavaram, Andhra Pradesh, India</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay:0.1s">
+                    <div class="edu-stack">
+                        <div class="edu-row">
+                            <div class="edu-yr">2022–2026</div>
+                            <div class="edu-body">
+                                <div class="edu-deg">B.Tech — Computer Science Engineering</div>
+                                <div class="edu-inst">Kalasalingam Academy of Research and Education</div>
+                                <div class="edu-badge">CGPA 7.76</div>
+                            </div>
+                        </div>
+                        <div class="edu-row">
+                            <div class="edu-yr">2020–2022</div>
+                            <div class="edu-body">
+                                <div class="edu-deg">Class XII — MPC</div>
+                                <div class="edu-inst">Tirumala Educational Institutions</div>
+                                <div class="edu-badge">93.7%</div>
+                            </div>
+                        </div>
+                        <div class="edu-row">
+                            <div class="edu-yr">2019–2020</div>
+                            <div class="edu-body">
+                                <div class="edu-deg">10th Standard — SSC</div>
+                                <div class="edu-inst">Bhashyam School, Branch 2, Bhimavaram</div>
+                                <div class="edu-badge">100%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="skills-wrap">
-    <div class="sec-label reveal">Skills</div>
-    <div class="skill-groups reveal">
-      <div class="skill-group">
-        <div class="sg-label">Languages</div>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">C</span>
-          <span class="chip">C++</span>
-          <span class="chip">Java</span>
-          <span class="chip">Dart</span>
-          <span class="chip">JavaScript</span>
+    <!-- SUMMARY -->
+    <section id="summary">
+        <div class="wrap">
+            <div class="sec-label reveal">Summary</div>
+            <div class="reveal" style="max-width:780px;">
+                <p style="font-size:1.05rem;font-weight:300;color:var(--black);line-height:1.9;">
+                    Computer Science Engineering student with strong foundations in Python, SQL, database systems, and data analysis. Experienced building data-driven applications using PostgreSQL, MySQL, MongoDB, Firebase, and REST APIs. Skilled in data cleaning, exploratory data analysis (EDA), data visualization, automation, and database management using Python, Pandas, NumPy, and Matplotlib.
+                </p>
+                <p style="font-size:0.9rem;font-weight:300;color:var(--gray);line-height:1.9;margin-top:1.25rem;">
+                    Published IEEE research papers with strong analytical and problem-solving skills. Seeking a Database Analyst role where I can apply my technical expertise to build scalable, insight-driven systems. Experienced in building end-to-end solutions including a smart recycling reverse vending machine, robotic automation, facial recognition attendance, IoT-enabled aquarium management, ML-powered roadside assistance, and Minecraft Bedrock addon development — each with a strong emphasis on data handling, backend integration, and user-centric design.
+                </p>
+                <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">SQL</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Python</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Data Analytics</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Data Visualization</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">PostgreSQL</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">MongoDB</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">EDA</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Automation</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">REST APIs</span>
+                    <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gray);padding:0.3rem 0.75rem;border:1px solid var(--rule);">Firebase</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="skill-group">
-        <div class="sg-label">ML &amp; AI</div>
-        <div class="chips">
-          <span class="chip">Computer Vision</span>
-          <span class="chip">CNNs</span>
-          <span class="chip">YOLOv8</span>
-          <span class="chip">Image Classification</span>
-          <span class="chip">Object Detection</span>
-          <span class="chip">Model Training</span>
-          <span class="chip">Edge AI Deployment</span>
-          <span class="chip">ONNX</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="sg-label">Frameworks</div>
-        <div class="chips">
-          <span class="chip">PyTorch</span>
-          <span class="chip">Ultralytics YOLO</span>
-          <span class="chip">OpenCV</span>
-          <span class="chip">Flutter</span>
-          <span class="chip">Jupyter Notebook</span>
-          <span class="chip">Google Colab</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="sg-label">IoT &amp; Embedded</div>
-        <div class="chips">
-          <span class="chip">Raspberry Pi</span>
-          <span class="chip">ESP32</span>
-          <span class="chip">Arduino</span>
-          <span class="chip">Firebase</span>
-          <span class="chip">Sensor Integration</span>
-          <span class="chip">IoT Dashboards</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="sg-label">Backend &amp; DB</div>
-        <div class="chips">
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">MongoDB</span>
-          <span class="chip">MySQL</span>
-          <span class="chip">Firebase</span>
-          <span class="chip">Supabase</span>
-          <span class="chip">REST APIs</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="sg-label">Dev Tools</div>
-        <div class="chips">
-          <span class="chip">Git</span>
-          <span class="chip">GitHub</span>
-          <span class="chip">VS Code</span>
-          <span class="chip">Android Studio</span>
-          <span class="chip">Bridge</span>
-          <span class="chip">Blockbench</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="sg-label">Remote Work</div>
-        <div class="chips">
-          <span class="chip">Technical Documentation</span>
-          <span class="chip">Independent Debugging</span>
-          <span class="chip">Online Collaboration</span>
-          <span class="chip">Self-Learning</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="wrap">
-    <div class="sec-label reveal">Projects</div>
-    <div class="projects-list">
-      <div class="proj-row">
-        <div class="proj-num">01</div>
-        <div>
-          <div class="proj-title">Green Guardian GO — ML-Powered Reverse Vending Machine</div>
-          <p class="proj-desc">End-to-end smart recycling system using a YOLOv8-based object detection model deployed on Raspberry Pi for real-time plastic bottle detection and validation. Integrated ML pipeline with IoT hardware, PostgreSQL backend, and a gamified user application to automate bottle classification, session tracking, and reward generation. Built with scalability in mind for smart city applications.</p>
-          <div class="proj-tags"><span class="ptag">YOLOv8</span><span class="ptag">Raspberry Pi</span><span class="ptag">PostgreSQL</span><span class="ptag">Computer Vision</span><span class="ptag">IoT</span><span class="ptag">Edge AI</span></div>
+    <!-- SKILLS -->
+    <section id="skills">
+        <div class="skills-wrap">
+            <div class="sec-label reveal">Skills</div>
+            <div class="skill-groups reveal">
+                <div class="skill-group">
+                    <div class="sg-label">Languages</div>
+                    <div class="chips">
+                        <span class="chip">Python</span>
+                        <span class="chip">SQL</span>
+                        <span class="chip">C</span>
+                        <span class="chip">C++</span>
+                        <span class="chip">Java</span>
+                        <span class="chip">Dart</span>
+                        <span class="chip">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">Data &amp; Analytics</div>
+                    <div class="chips">
+                        <span class="chip">Data Cleaning</span>
+                        <span class="chip">Exploratory Data Analysis</span>
+                        <span class="chip">Data Visualization</span>
+                        <span class="chip">Pandas</span>
+                        <span class="chip">NumPy</span>
+                        <span class="chip">Matplotlib</span>
+                        <span class="chip">Automation</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">Databases</div>
+                    <div class="chips">
+                        <span class="chip">PostgreSQL</span>
+                        <span class="chip">MySQL</span>
+                        <span class="chip">MongoDB</span>
+                        <span class="chip">Firebase</span>
+                        <span class="chip">Supabase</span>
+                        <span class="chip">REST APIs</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">AI &amp; ML</div>
+                    <div class="chips">
+                        <span class="chip">Computer Vision</span>
+                        <span class="chip">CNNs</span>
+                        <span class="chip">YOLOv8</span>
+                        <span class="chip">Object Detection</span>
+                        <span class="chip">Image Classification</span>
+                        <span class="chip">Edge AI</span>
+                        <span class="chip">ONNX</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">Frameworks</div>
+                    <div class="chips">
+                        <span class="chip">PyTorch</span>
+                        <span class="chip">Ultralytics YOLO</span>
+                        <span class="chip">OpenCV</span>
+                        <span class="chip">Flutter</span>
+                        <span class="chip">Jupyter Notebook</span>
+                        <span class="chip">Google Colab</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">IoT &amp; Embedded</div>
+                    <div class="chips">
+                        <span class="chip">Raspberry Pi</span>
+                        <span class="chip">ESP32</span>
+                        <span class="chip">Arduino</span>
+                        <span class="chip">Sensor Integration</span>
+                        <span class="chip">IoT Dashboards</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">Dev Tools</div>
+                    <div class="chips">
+                        <span class="chip">Git</span>
+                        <span class="chip">GitHub</span>
+                        <span class="chip">VS Code</span>
+                        <span class="chip">Android Studio</span>
+                        <span class="chip">Bridge</span>
+                        <span class="chip">Blockbench</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="sg-label">Remote Work</div>
+                    <div class="chips">
+                        <span class="chip">Technical Documentation</span>
+                        <span class="chip">Independent Debugging</span>
+                        <span class="chip">Online Collaboration</span>
+                        <span class="chip">Self-Learning</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">recycling</span></div>
-      </div>
-      <div class="proj-row">
-        <div class="proj-num">02</div>
-        <div>
-          <div class="proj-title">BluNest — Smart Aquarium Care IoT Application</div>
-          <p class="proj-desc">Flutter-based IoT application for smart aquarium monitoring and automation. Built modules for dashboard monitoring, sensor data visualization, feeding control, and device status tracking. Integrated Firebase for real-time updates and remote monitoring. The system supports aquarium parameters such as temperature, turbidity, pH, TDS, and water level, with future scope for ML-based water quality prediction and intelligent aquarium care.</p>
-          <div class="proj-tags"><span class="ptag">Flutter</span><span class="ptag">Firebase</span><span class="ptag">IoT</span><span class="ptag">Sensors</span><span class="ptag">ML Scope</span><span class="ptag">IEEE Published</span></div>
-        </div>
-        <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">set_meal</span></div>
-      </div>
-      <div class="proj-row">
-        <div class="proj-num">03</div>
-        <div>
-          <div class="proj-title">Dual-Mode Robotic Arm</div>
-          <p class="proj-desc">Autonomous robotic arm switching between manual joystick control and AI-assisted pick-and-place operations. Integrated motor control, sensors, and vision-based decision-making for real-time object handling. Designed for manufacturing and automation use cases. Won 1st Place at the RAS Project Showcase — national robotics competition.</p>
-          <div class="proj-tags"><span class="ptag">Robotics</span><span class="ptag">AI Vision</span><span class="ptag">Motor Control</span><span class="ptag">Sensors</span><span class="ptag">Award Winner</span><span class="ptag">IEEE Published</span></div>
-        </div>
-        <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">precision_manufacturing</span></div>
-      </div>
-      <div class="proj-row">
-        <div class="proj-num">04</div>
-        <div>
-          <div class="proj-title">Facial Recognition-Based Smart Attendance System</div>
-          <p class="proj-desc">Real-time facial recognition attendance system using OpenCV and the face_recognition library. Automated identity verification and attendance logging to reduce manual effort and prevent proxy attendance. Integrated MongoDB for storing and managing attendance records. Designed for institutional and classroom deployment.</p>
-          <div class="proj-tags"><span class="ptag">OpenCV</span><span class="ptag">Face Recognition</span><span class="ptag">MongoDB</span><span class="ptag">Python</span><span class="ptag">IEEE Published</span></div>
-        </div>
-        <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">familiar_face_and_zone</span></div>
-      </div>
-      <div class="proj-row">
-        <div class="proj-num">05</div>
-        <div>
-          <div class="proj-title">Fix My Ride — ML-Enabled Automotive Assistance Platform</div>
-          <p class="proj-desc">Machine learning-enabled roadside assistance platform to recommend mechanics, estimate repair costs, and identify fraudulent reviews. Combines ML logic, location-based services, and backend integration for faster emergency vehicle support. Built with transparency and user trust as core design principles. Published in IEEE.</p>
-          <div class="proj-tags"><span class="ptag">Machine Learning</span><span class="ptag">Location Services</span><span class="ptag">Fraud Detection</span><span class="ptag">REST APIs</span><span class="ptag">IEEE Published</span></div>
-        </div>
-        <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">bus_map_pin</span></div>
-      </div>
-      <div class="proj-row">
-        <div class="proj-num">06</div>
-        <div>
-          <div class="proj-title">Minecraft Bedrock Addon Development &amp; Game Scripting</div>
-          <p class="proj-desc">Developed custom Minecraft Bedrock addons using JSON-based behavior packs, resource packs, and JavaScript scripting. Designed gameplay systems involving custom blocks, items, abilities, textures, recipes, and in-game mechanics. Worked with Bridge and Blockbench for addon development, asset structuring, model handling, and debugging Bedrock API behavior.</p>
-          <div class="proj-tags"><span class="ptag">JavaScript</span><span class="ptag">JSON</span><span class="ptag">Game Scripting</span><span class="ptag">Bridge</span><span class="ptag">Blockbench</span><span class="ptag">API Debugging</span></div>
-        </div>
-        <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">deployed_code</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ACHIEVEMENTS -->
-<section id="achievements">
-  <div class="wrap">
-    <div class="sec-label reveal">Recognition &amp; Research</div>
-    <div class="ach-grid reveal">
-      <div class="ach-col">
-        <div class="ach-sub">Awards</div>
-        <div class="award-item">
-          <div class="award-icon"><span class="material-symbols-outlined" aria-hidden="true">trophy</span></div>
-          <div>
-            <div class="award-t">1st Place — RAS Project Showcase</div>
-            <div class="award-s">Dual-Mode Robotic Arm · National Competition</div>
-          </div>
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="wrap">
+            <div class="sec-label reveal">Projects</div>
+            <div class="projects-list">
+                <div class="proj-row">
+                    <div class="proj-num">01</div>
+                    <div>
+                        <div class="proj-title">Green Guardian GO — ML-Powered Reverse Vending Machine</div>
+                        <p class="proj-desc">End-to-end smart recycling system using a YOLOv8-based object detection model deployed on Raspberry Pi for real-time plastic bottle detection and validation. Integrated ML pipeline with IoT hardware, PostgreSQL backend, and a gamified user application to automate bottle classification, session tracking, and reward generation. Built with scalability in mind for smart city applications.</p>
+                        <div class="proj-tags"><span class="ptag">YOLOv8</span><span class="ptag">Raspberry Pi</span><span class="ptag">PostgreSQL</span><span class="ptag">Computer Vision</span><span class="ptag">IoT</span><span class="ptag">Edge AI</span></div>
+                    </div>
+                    <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">recycling</span></div>
+                </div>
+                <div class="proj-row">
+                    <div class="proj-num">02</div>
+                    <div>
+                        <div class="proj-title">BluNest — Smart Aquarium Care IoT Application</div>
+                        <p class="proj-desc">Flutter-based IoT application for smart aquarium monitoring and automation. Built modules for dashboard monitoring, sensor data visualization, feeding control, and device status tracking. Integrated Firebase for real-time updates and remote monitoring. The system supports aquarium parameters such as temperature, turbidity, pH, TDS, and water level, with future scope for ML-based water quality prediction and intelligent aquarium care.</p>
+                        <div class="proj-tags"><span class="ptag">Flutter</span><span class="ptag">Firebase</span><span class="ptag">IoT</span><span class="ptag">Sensors</span><span class="ptag">ML Scope</span><span class="ptag">IEEE Published</span></div>
+                    </div>
+                    <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">set_meal</span></div>
+                </div>
+                <div class="proj-row">
+                    <div class="proj-num">03</div>
+                    <div>
+                        <div class="proj-title">Dual-Mode Robotic Arm</div>
+                        <p class="proj-desc">Autonomous robotic arm switching between manual joystick control and AI-assisted pick-and-place operations. Integrated motor control, sensors, and vision-based decision-making for real-time object handling. Designed for manufacturing and automation use cases. Won 1st Place at the RAS Project Showcase — national robotics competition.</p>
+                        <div class="proj-tags"><span class="ptag">Robotics</span><span class="ptag">AI Vision</span><span class="ptag">Motor Control</span><span class="ptag">Sensors</span><span class="ptag">Award Winner</span><span class="ptag">IEEE Published</span></div>
+                    </div>
+                    <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">precision_manufacturing</span></div>
+                </div>
+                <div class="proj-row">
+                    <div class="proj-num">04</div>
+                    <div>
+                        <div class="proj-title">Facial Recognition-Based Smart Attendance System</div>
+                        <p class="proj-desc">Real-time facial recognition attendance system using OpenCV and the face_recognition library. Automated identity verification and attendance logging to reduce manual effort and prevent proxy attendance. Integrated MongoDB for storing and managing attendance records. Designed for institutional and classroom deployment.</p>
+                        <div class="proj-tags"><span class="ptag">OpenCV</span><span class="ptag">Face Recognition</span><span class="ptag">MongoDB</span><span class="ptag">Python</span><span class="ptag">IEEE Published</span></div>
+                    </div>
+                    <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">familiar_face_and_zone</span></div>
+                </div>
+                <div class="proj-row">
+                    <div class="proj-num">05</div>
+                    <div>
+                        <div class="proj-title">Fix My Ride — ML-Enabled Automotive Assistance Platform</div>
+                        <p class="proj-desc">Machine learning-enabled roadside assistance platform to recommend mechanics, estimate repair costs, and identify fraudulent reviews. Combines ML logic, location-based services, and backend integration for faster emergency vehicle support. Built with transparency and user trust as core design principles. Published in IEEE.</p>
+                        <div class="proj-tags"><span class="ptag">Machine Learning</span><span class="ptag">Location Services</span><span class="ptag">Fraud Detection</span><span class="ptag">REST APIs</span><span class="ptag">IEEE Published</span></div>
+                    </div>
+                    <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">bus_map_pin</span></div>
+                </div>
+                <div class="proj-row">
+                    <div class="proj-num">06</div>
+                    <div>
+                        <div class="proj-title">Minecraft Bedrock Addon Development &amp; Game Scripting</div>
+                        <p class="proj-desc">Developed custom Minecraft Bedrock addons using JSON-based behavior packs, resource packs, and JavaScript scripting. Designed gameplay systems involving custom blocks, items, abilities, textures, recipes, and in-game mechanics. Worked with Bridge and Blockbench for addon development, asset structuring, model handling, and debugging Bedrock API behavior.</p>
+                        <div class="proj-tags"><span class="ptag">JavaScript</span><span class="ptag">JSON</span><span class="ptag">Game Scripting</span><span class="ptag">Bridge</span><span class="ptag">Blockbench</span><span class="ptag">API Debugging</span></div>
+                    </div>
+                    <div class="proj-icon"><span class="material-symbols-outlined" aria-hidden="true">deployed_code</span></div>
+                </div>
+            </div>
         </div>
-        <div class="award-item">
-          <div class="award-icon"><span class="material-symbols-outlined" aria-hidden="true">rocket_launch</span></div>
-          <div>
-            <div class="award-t">Finalist — Top 10 of 500+ Teams</div>
-            <div class="award-s">Ground Reality, Launchpad '25 · E-Cell, BITS Pilani Hyderabad</div>
-          </div>
-        </div>
-      </div>
-      <div class="ach-col">
-        <div class="ach-sub">IEEE Publications</div>
-        <div class="pub-item">
-          <div class="pub-n">01</div>
-          <div class="pub-t">BluNest: IoT &amp; ML-Based Intelligent Aquarium Management System<br><a href="https://ieeexplore.ieee.org/document/11506892" target="_blank">IEEE Xplore ↗</a></div>
-        </div>
-        <div class="pub-item">
-          <div class="pub-n">02</div>
-          <div class="pub-t">Fix My Ride: ML-Enabled Platform for Intelligent Automotive Assistance<br><a href="https://ieeexplore.ieee.org/document/11315625" target="_blank">IEEE Xplore ↗</a></div>
-        </div>
-        <div class="pub-item">
-          <div class="pub-n">03</div>
-          <div class="pub-t">Facial Recognition-Based Smart Attendance System Using MongoDB and OpenCV<br><a href="https://ieeexplore.ieee.org/document/11069930" target="_blank">IEEE Xplore ↗</a></div>
-        </div>
-        <div class="pub-item">
-          <div class="pub-n">04</div>
-          <div class="pub-t">Dual-Mode Robotic Arm For Manufacturing Industries<br><a href="https://ieeexplore.ieee.org/document/11053040" target="_blank">IEEE Xplore ↗</a></div>
-        </div>
-        <div class="pub-item">
-          <div class="pub-n">05</div>
-          <div class="pub-t">IoT Enabled Device-to-Device Communication for Smart City Application<br><a href="https://ieeexplore.ieee.org/document/10823329" target="_blank">IEEE Xplore ↗</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-inner">
-      <div class="sec-label reveal">Contact</div>
-      <h2 class="contact-heading reveal">Let's build practical,<br>intelligent systems together.</h2>
-      <div class="contact-row reveal" style="transition-delay:0.1s">
-        <div class="c-item"><span class="c-label">Phone</span><span class="c-val">+91 86397 96374</span></div>
-        <div class="c-item"><span class="c-label">Email</span><span class="c-val"><a href="mailto:pavansivakumar27@gmail.com">pavansivakumar27@gmail.com</a></span></div>
-        <div class="c-item"><span class="c-label">LinkedIn</span><span class="c-val"><a href="https://www.linkedin.com/in/somana-pavan-siva-kumar/" target="_blank">somana-pavan-siva-kumar</a></span></div>
-        <div class="c-item"><span class="c-label">GitHub</span><span class="c-val"><a href="https://github.com/Pavan8114" target="_blank">Pavan8114</a></span></div>
-      </div>
-      <div class="cta-row reveal" style="transition-delay:0.2s">
-        <a href="Pavan_Siva_Kumar_Resume.pdf" class="btn btn-fill" target="_blank" rel="noopener">Download Resume</a>
-        <a href="mailto:pavansivakumar27@gmail.com" class="btn btn-ghost">Send Email</a>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements">
+        <div class="wrap">
+            <div class="sec-label reveal">Recognition &amp; Research</div>
+            <div class="ach-grid reveal">
+                <div class="ach-col">
+                    <div class="ach-sub">Awards</div>
+                    <div class="award-item">
+                        <div class="award-icon"><span class="material-symbols-outlined" aria-hidden="true">trophy</span></div>
+                        <div>
+                            <div class="award-t">1st Place — RAS Project Showcase</div>
+                            <div class="award-s">Dual-Mode Robotic Arm · National Competition</div>
+                        </div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-icon"><span class="material-symbols-outlined" aria-hidden="true">rocket_launch</span></div>
+                        <div>
+                            <div class="award-t">Finalist — Top 10 of 500+ Teams</div>
+                            <div class="award-s">Ground Reality, Launchpad '25 · E-Cell, BITS Pilani Hyderabad</div>
+                        </div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-icon"><span class="material-symbols-outlined" aria-hidden="true">analytics</span></div>
+                        <div>
+                            <div class="award-t">6th Place — Project Expo</div>
+                            <div class="award-s">Recognized for innovative software &amp; hardware solutions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ach-col">
+                    <div class="ach-sub">IEEE Publications</div>
+                    <div class="pub-item">
+                        <div class="pub-n">01</div>
+                        <div class="pub-t">BluNest: IoT &amp; ML-Based Intelligent Aquarium Management System<br><a href="https://ieeexplore.ieee.org/document/11506892" target="_blank">IEEE Xplore ↗</a></div>
+                    </div>
+                    <div class="pub-item">
+                        <div class="pub-n">02</div>
+                        <div class="pub-t">Fix My Ride: ML-Enabled Platform for Intelligent Automotive Assistance<br><a href="https://ieeexplore.ieee.org/document/11315625" target="_blank">IEEE Xplore ↗</a></div>
+                    </div>
+                    <div class="pub-item">
+                        <div class="pub-n">03</div>
+                        <div class="pub-t">Facial Recognition-Based Smart Attendance System Using MongoDB and OpenCV<br><a href="https://ieeexplore.ieee.org/document/11069930" target="_blank">IEEE Xplore ↗</a></div>
+                    </div>
+                    <div class="pub-item">
+                        <div class="pub-n">04</div>
+                        <div class="pub-t">Dual-Mode Robotic Arm For Manufacturing Industries<br><a href="https://ieeexplore.ieee.org/document/11053040" target="_blank">IEEE Xplore ↗</a></div>
+                    </div>
+                    <div class="pub-item">
+                        <div class="pub-n">05</div>
+                        <div class="pub-t">IoT Enabled Device-to-Device Communication for Smart City Application<br><a href="https://ieeexplore.ieee.org/document/10823329" target="_blank">IEEE Xplore ↗</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<footer>
-  <span>Pavan Siva Kumar Somana · B.Tech CSE '26</span>
-  <span>Bhimavaram, Andhra Pradesh</span>
-</footer>
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="wrap">
+            <div class="contact-inner">
+                <div class="sec-label reveal">Contact</div>
+                <h2 class="contact-heading reveal">Let's build data-driven<br>solutions together.</h2>
+                <div class="contact-row reveal" style="transition-delay:0.1s">
+                    <div class="c-item"><span class="c-label">Phone</span><span class="c-val">+91 86397 96374</span></div>
+                    <div class="c-item"><span class="c-label">Email</span><span class="c-val"><a href="mailto:pavansivakumar27@gmail.com">pavansivakumar27@gmail.com</a></span></div>
+                    <div class="c-item"><span class="c-label">LinkedIn</span><span class="c-val"><a href="https://www.linkedin.com/in/somana-pavan-siva-kumar/" target="_blank">somana-pavan-siva-kumar</a></span></div>
+                    <div class="c-item"><span class="c-label">GitHub</span><span class="c-val"><a href="https://github.com/Pavan8114" target="_blank">Pavan8114</a></span></div>
+                </div>
+                <div class="cta-row reveal" style="transition-delay:0.2s">
+                    <a href="Pavan_Siva_Kumar_Resume.pdf" class="btn btn-fill" target="_blank" rel="noopener">Download Resume</a>
+                    <a href="mailto:pavansivakumar27@gmail.com" class="btn btn-ghost">Send Email</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-// Scroll progress
-const prog = document.getElementById('prog');
-window.addEventListener('scroll', () => {
-  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-  prog.style.width = pct + '%';
-});
+    <footer>
+        <span>Pavan Siva Kumar Somana · B.Tech CSE '26</span>
+        <span>Bhimavaram, Andhra Pradesh</span>
+    </footer>
 
-// Typewriter
-const phrases = ['AI/ML Intern','Computer Vision Developer','Python Developer','IoT Systems Developer','Flutter App Developer','IEEE Researcher'];
-let pi = 0, ci = 0, del = false;
-const el = document.getElementById('tw');
-function tick() {
-  const s = phrases[pi];
-  el.textContent = del ? s.slice(0, ci--) : s.slice(0, ci++);
-  if (!del && ci > s.length) { del = true; setTimeout(tick, 1200); return; }
-  if (del && ci < 0) { del = false; pi = (pi + 1) % phrases.length; ci = 0; }
-  setTimeout(tick, del ? 35 : 75);
-}
-tick();
+    <script>
+        // Scroll progress
+        const prog = document.getElementById('prog');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+            prog.style.width = pct + '%';
+        });
 
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal, .proj-row, .edu-row').forEach(el => obs.observe(el));
+        // Typewriter
+        const phrases = ['Database Analyst', 'SQL Developer', 'Data Analyst', 'Python Developer', 'Data Visualization', 'IEEE Researcher'];
+        let pi = 0,
+            ci = 0,
+            del = false;
+        const el = document.getElementById('tw');
 
-// Stagger proj rows
-document.querySelectorAll('.proj-row').forEach((r, i) => r.style.transitionDelay = i * 0.08 + 's');
-document.querySelectorAll('.edu-row').forEach((r, i) => r.style.transitionDelay = i * 0.12 + 's');
-</script>
+        function tick() {
+            const s = phrases[pi];
+            el.textContent = del ? s.slice(0, ci--) : s.slice(0, ci++);
+            if (!del && ci > s.length) { del = true;
+                setTimeout(tick, 1200); return; }
+            if (del && ci < 0) { del = false;
+                pi = (pi + 1) % phrases.length;
+                ci = 0; }
+            setTimeout(tick, del ? 35 : 75);
+        }
+        tick();
+
+        // Scroll reveal
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal, .proj-row, .edu-row').forEach(el => obs.observe(el));
+
+        // Stagger proj rows
+        document.querySelectorAll('.proj-row').forEach((r, i) => r.style.transitionDelay = i * 0.08 + 's');
+        document.querySelectorAll('.edu-row').forEach((r, i) => r.style.transitionDelay = i * 0.12 + 's');
+    </script>
 </body>
 </html>
